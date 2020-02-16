@@ -87,4 +87,31 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style>
+body,
+html,
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  color: white;
+  background: #2c6490;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+}
+</style>
