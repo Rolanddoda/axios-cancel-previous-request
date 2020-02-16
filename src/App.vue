@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <LeftSection />
+    <LeftSection
+      :done="done"
+      @send="send"
+      @cancel="cancel"
+      @reset="resetRequests"
+    />
+    <RightSection ref="rightSection" :requests="requests" />
   </div>
 </template>
 
@@ -8,6 +14,7 @@
 import axios from "axios";
 // Components
 import LeftSection from "./components/LeftSection";
+import RightSection from "./components/RightSection";
 
 const API_URL = "https://reqres.in/api/users?delay=2";
 
@@ -15,7 +22,8 @@ export default {
   name: "App",
 
   components: {
-    LeftSection
+    LeftSection,
+    RightSection
   },
 
   data: () => ({
