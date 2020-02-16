@@ -1,4 +1,4 @@
-# axios-cancel-previous-request
+> ### A tiny vue app showing how to cancel previous api requests using axios
 
 ## Project setup
 ```
