@@ -1,10 +1,18 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <LeftSection />
+  </div>
 </template>
 
 <script>
+import LeftSection from "./components/LeftSection";
+
 export default {
-  name: "App"
+  name: "App",
+
+  components: {
+    LeftSection
+  }
 };
 </script>
 
