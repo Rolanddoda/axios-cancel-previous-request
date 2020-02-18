@@ -10,15 +10,14 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### How to cancel previous request
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```js
+import axios from 'axios'
+const request = axios.CancelToken.source()
+
+axios.get('api url', { cancelToken: request.token })
+
+request.cancel('Request cancelled')
+```
