@@ -26,6 +26,7 @@ export default {
 
   &.disabled {
     color: grey;
+    pointer-events: none;
   }
 }
 </style>
