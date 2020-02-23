@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    Did you see that change ???
     <LeftSection
       :done="done"
       @send="send"
