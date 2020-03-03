@@ -115,7 +115,7 @@ body {
   margin: 0;
   text-align: center;
   color: white;
-  background: #2c6490;
+  background: #0d3350;
 }
 
 #app {
