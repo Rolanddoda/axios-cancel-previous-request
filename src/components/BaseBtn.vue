@@ -21,7 +21,7 @@ export default {
   transition: box-shadow 0.2s ease-in-out;
 
   &:hover {
-    box-shadow: 10px 10px 60px #25557a, -10px -10px 60px #3373a6;
+    box-shadow: 20px 20px 60px #0b2b44, -20px -20px 60px #0f3b5c;
   }
 
   &.disabled {
