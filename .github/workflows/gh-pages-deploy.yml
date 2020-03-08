@@ -18,7 +18,7 @@ jobs:
       - name: Clean install dependencies
         run: npm ci
 
-      - name:
+      - name: Run deploy script
         run: |
           git config user.name "GitHub Actions" && git config user.email "actions@users.noreply.github.com"
           npm run gh-pages-deploy
