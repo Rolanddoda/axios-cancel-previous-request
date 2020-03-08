@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "gh-pages": "git checkout --orphan gh-pages && npm run build && git --work-tree dist add --all && git --work-tree dist commit -m 'gh-pages' && git push origin HEAD:gh-pages --force && rm -r dist && git checkout -f master && git branch -D gh-pages"
+    "gh-pages-deploy": "node scripts/gh-pages-deploy.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -26,7 +26,10 @@
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "execa": "latest",
+    "node-emoji": "latest",
+    "chalk": "latest"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
