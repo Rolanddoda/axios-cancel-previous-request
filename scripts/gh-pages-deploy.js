@@ -19,12 +19,13 @@ const thirdLog =
     await execa("git", ["--work-tree", "dist", "add", "--all"]);
     await execa("git", ["--work-tree", "dist", "commit", "-m", "gh-pages"]);
     console.log(secondLog);
-    await execa("git", ["push", "-f", "origin", "gh-pages"]);
+    await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
     await execa("rm", ["-r", "dist"]);
     await execa("git", ["checkout", "-f", "master"]);
     await execa("git", ["branch", "-D", "gh-pages"]);
     console.log(thirdLog);
   } catch (e) {
     console.log(e.message);
+    process.exit(1);
   }
 })();
