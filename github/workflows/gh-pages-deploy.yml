@@ -1,0 +1,23 @@
+name: Deploy to github pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  gh-pages-deploy:
+    name: Deploy app to github pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v1
+        with:
+          node-version: '11.x'
+          registry-url: https://registry.npmjs.org
+
+      - name: Clean install dependencies
+        run: npm ci
+
+      - name: Deploy
+        run: npm run gh-pages-deploy
