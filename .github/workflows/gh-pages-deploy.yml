@@ -20,4 +20,7 @@ jobs:
         run: npm ci
 
       - name: Deploy
-        run: npm run gh-pages-deploy
+        run: |
+          git config user.email "rolanddoda2014@gmail.com"
+          git config user.name "RolandDoda"
+          npm run gh-pages-deploy
