@@ -5,8 +5,9 @@ on:
       - master
 jobs:
   gh-pages-deploy:
-    - runs-on: ubuntu-latest
-      steps:
+    name: Deploying to gh-pages
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v1.1.0
         with:
