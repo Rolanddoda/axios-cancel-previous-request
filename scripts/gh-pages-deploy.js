@@ -1,7 +1,9 @@
 const execa = require("execa");
 const emoji = require("node-emoji");
 const chalk = require("chalk");
+const fs = require("fs");
 
+const prodFolderName = fs.existsSync(".github") ? "dist" : "build";
 const firstLog = emoji.get("fast_forward") + " " + chalk.yellow("Building...");
 const secondLog = emoji.get("fast_forward") + " " + chalk.yellow("Pushing...");
 const thirdLog =
@@ -16,11 +18,17 @@ const thirdLog =
     await execa("git", ["checkout", "--orphan", "gh-pages"]);
     console.log(firstLog);
     await execa("npm", ["run", "build"]);
-    await execa("git", ["--work-tree", "dist", "add", "--all"]);
-    await execa("git", ["--work-tree", "dist", "commit", "-m", "gh-pages"]);
+    await execa("git", ["--work-tree", prodFolderName, "add", "--all"]);
+    await execa("git", [
+      "--work-tree",
+      prodFolderName,
+      "commit",
+      "-m",
+      "gh-pages"
+    ]);
     console.log(secondLog);
     await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
-    await execa("rm", ["-r", "dist"]);
+    await execa("rm", ["-r", prodFolderName]);
     await execa("git", ["checkout", "-f", "master"]);
     await execa("git", ["branch", "-D", "gh-pages"]);
     console.log(thirdLog);
