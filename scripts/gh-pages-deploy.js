@@ -3,7 +3,6 @@ const emoji = require("node-emoji");
 const chalk = require("chalk");
 const fs = require("fs");
 
-const prodFolderName = fs.existsSync("dist") ? "dist" : "build";
 const firstLog = emoji.get("fast_forward") + " " + chalk.yellow("Building...");
 const secondLog = emoji.get("fast_forward") + " " + chalk.yellow("Pushing...");
 const thirdLog =
@@ -18,6 +17,8 @@ const thirdLog =
     await execa("git", ["checkout", "--orphan", "gh-pages"]);
     console.log(firstLog);
     await execa("npm", ["run", "build"]);
+    // Understand if it's dist or build folder
+    const prodFolderName = fs.existsSync("dist") ? "dist" : "build";
     await execa("git", ["--work-tree", prodFolderName, "add", "--all"]);
     await execa("git", [
       "--work-tree",
