@@ -3,7 +3,7 @@ const emoji = require("node-emoji");
 const chalk = require("chalk");
 const fs = require("fs");
 
-const prodFolderName = fs.existsSync(".github") ? "dist" : "build";
+const prodFolderName = fs.existsSync("dist") ? "dist" : "build";
 const firstLog = emoji.get("fast_forward") + " " + chalk.yellow("Building...");
 const secondLog = emoji.get("fast_forward") + " " + chalk.yellow("Pushing...");
 const thirdLog =
