@@ -1,11 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {
-  CANCELLED,
-  LOADING,
-  SUCCESS,
-  REQ_FAILED
-} from "../utils/request-messages";
+import * as msg from "../utils/request-messages";
 
 Vue.use(Vuex);
 
@@ -22,20 +17,20 @@ export default new Vuex.Store({
   },
   mutations: {
     addRequest: (state, req) => {
-      state.activeReq = { cancel: req.cancel, msg: LOADING };
+      state.activeReq = { cancel: req.cancel, msg: msg.LOADING };
     },
 
     cancelReq(state) {
       state.activeReq.cancel();
-      clearOldRequest(state, CANCELLED);
+      clearOldRequest(state, msg.CANCELLED);
     },
 
     requestSucceed(state) {
-      clearOldRequest(state, SUCCESS);
+      clearOldRequest(state, msg.SUCCESS);
     },
 
     requestFailed(state) {
-      clearOldRequest(state, REQ_FAILED);
+      clearOldRequest(state, msg.REQ_FAILED);
     },
 
     clearOldRequest
