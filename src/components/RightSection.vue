@@ -3,17 +3,14 @@
     <h4>Requests</h4>
 
     <div ref="logger" class="logger">
-      <div
-        class="log"
-        :class="{ active: index === requests.length - 1 }"
-        v-for="(req, index) of requests"
-        :key="index"
-      >
+      <div class="log" v-for="(req, index) of requests" :key="index">
         <span>Request {{ index + 1 }}</span>
         {{ req.msg }}
-        <!--        <span title="pending" v-if="req.done === null">⏳ (loading)</span>-->
-        <!--        <span title="succeed" v-else-if="req.done">☑️(success)</span>-->
-        <!--        <span title="failed" v-else>✖️(cancelled)</span>-->
+      </div>
+
+      <div class="log active" v-if="activeReq">
+        <span>Request {{ requests.length + 1 }}</span>
+        {{ activeReq.msg }}
       </div>
     </div>
   </div>
@@ -24,7 +21,7 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["requests"])
+    ...mapState(["requests", "activeReq"])
   },
 
   methods: {
