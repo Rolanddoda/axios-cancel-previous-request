@@ -15,16 +15,16 @@ export default new Vuex.Store({
     activeReq: null
   },
   mutations: {
-    addRequest: ({ activeReq, requests }, req) => {
-      if (activeReq) cancelReq(activeReq);
+    addRequest: (state, req) => {
+      if (state.activeReq) cancelReq(state.activeReq);
       const request = { cancel: req.cancel, msg: LOADING };
-      requests.push(request);
-      activeReq = request; // TODO check for immutability
+      state.requests.push(request);
+      state.activeReq = request; // TODO check for immutability
     },
 
     cancelReq,
 
-    clearActiveReq: ({ activeReq }) => (activeReq = null),
+    clearActiveReq: state => (state.activeReq = null),
 
     editReqMsg: ({ activeReq }, msg) => (activeReq.msg = msg)
   }

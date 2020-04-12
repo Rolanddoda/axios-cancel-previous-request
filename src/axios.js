@@ -3,7 +3,9 @@ import store from "./store";
 import { CANCELLED, FAILED } from "./utils/request-messages";
 
 function request(request) {
-  store.commit("addRequest", request);
+  const axiosSource = axios.CancelToken.source();
+  request.cancelToken = axiosSource.token;
+  store.commit("addRequest", { ...request, cancel: axiosSource.cancel });
   return request;
 }
 

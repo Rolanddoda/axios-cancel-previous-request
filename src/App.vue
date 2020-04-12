@@ -6,12 +6,8 @@
 </template>
 
 <script>
-import axios from "axios";
-// Components
 import LeftSection from "./components/LeftSection";
 import RightSection from "./components/RightSection";
-
-const API_URL = "https://reqres.in/api/users?delay=2";
 
 export default {
   name: "App",
@@ -19,12 +15,6 @@ export default {
   components: {
     LeftSection,
     RightSection
-  },
-
-  methods: {
-    send() {
-      axios.get(API_URL);
-    }
   }
 };
 </script>

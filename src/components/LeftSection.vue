@@ -1,32 +1,39 @@
 <template>
   <div class="left-section">
-    <BaseBtn @click="$emit('send')">Send Request</BaseBtn>
-    <BaseBtn :disabled="whenRequestInProgress" @click="$emit('cancel')">
+    <BaseBtn @click="send">Send Request</BaseBtn>
+    <BaseBtn :disabled="!loading" @click="cancel">
       Cancel Request
     </BaseBtn>
-    <BaseBtn :disabled="!whenRequestInProgress" @click="$emit('reset')">
+    <BaseBtn :disabled="loading" @click="$emit('reset')">
       Reset requests
     </BaseBtn>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import { mapMutations } from "vuex";
+// Components
 import BaseBtn from "./BaseBtn";
+
+const API_URL = "https://reqres.in/api/users?delay=2";
 
 export default {
   components: {
     BaseBtn
   },
 
-  props: {
-    done: {
-      validator: prop => typeof prop === "boolean" || prop === null // done can be boolean or null
-    }
-  },
+  data: () => ({
+    loading: false
+  }),
 
-  computed: {
-    whenRequestInProgress() {
-      return this.done !== null;
+  methods: {
+    ...mapMutations({ cancel: "cancelReq" }),
+
+    async send() {
+      this.loading = true;
+      await axios.get(API_URL);
+      this.loading = false;
     }
   }
 };
