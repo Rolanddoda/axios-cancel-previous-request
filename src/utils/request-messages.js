@@ -1,3 +1,3 @@
 export const CANCELLED = "✖️(cancelled)";
-export const FAILED = "⁉ Request failed";
 export const LOADING = "⏳ (loading)";
+export const REQ_FAILED = "⁉ Request failed";

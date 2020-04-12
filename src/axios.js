@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "./store";
-import { CANCELLED, FAILED } from "./utils/request-messages";
+import { CANCELLED, REQ_FAILED } from "./utils/request-messages";
 
 function request(request) {
   const axiosSource = axios.CancelToken.source();
@@ -13,7 +13,7 @@ function requestError(error) {
   if (axios.isCancel(error)) {
     store.commit("editReqMsg", CANCELLED);
   } else {
-    store.commit("editReqMsg", FAILED);
+    store.commit("editReqMsg", REQ_FAILED);
   }
 }
 

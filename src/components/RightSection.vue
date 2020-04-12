@@ -7,21 +7,24 @@
         class="log"
         :class="{ active: index === requests.length - 1 }"
         v-for="(req, index) of requests"
-        :key="req.id"
+        :key="index"
       >
         <span>Request {{ index + 1 }}</span>
-        <span title="pending" v-if="req.done === null">⏳ (loading)</span>
-        <span title="succeed" v-else-if="req.done">☑️(success)</span>
-        <span title="failed" v-else>✖️(cancelled)</span>
+        {{ req.msg }}
+        <!--        <span title="pending" v-if="req.done === null">⏳ (loading)</span>-->
+        <!--        <span title="succeed" v-else-if="req.done">☑️(success)</span>-->
+        <!--        <span title="failed" v-else>✖️(cancelled)</span>-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  props: {
-    requests: Array
+  computed: {
+    ...mapState(["requests"])
   },
 
   methods: {
