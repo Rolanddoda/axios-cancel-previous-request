@@ -38,6 +38,13 @@ export default new Vuex.Store({
       clearOldRequest(state, REQ_FAILED);
     },
 
-    editReqMsg: ({ activeReq }, msg) => (activeReq.msg = msg)
+    clearOldRequest
+  },
+
+  actions: {
+    addRequest({ state, commit }, req) {
+      if (state.activeReq) commit("cancelReq");
+      commit("addRequest", req);
+    }
   }
 });

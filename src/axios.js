@@ -4,7 +4,7 @@ import store from "./store";
 function request(request) {
   const axiosSource = axios.CancelToken.source();
   request.cancelToken = axiosSource.token;
-  store.commit("addRequest", { ...request, cancel: axiosSource.cancel });
+  store.dispatch("addRequest", { ...request, cancel: axiosSource.cancel });
   return request;
 }
 
