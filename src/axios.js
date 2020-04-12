@@ -1,6 +1,5 @@
 import axios from "axios";
 import store from "./store";
-import { CANCELLED, REQ_FAILED, SUCCESS } from "./utils/request-messages";
 
 function request(request) {
   const axiosSource = axios.CancelToken.source();
@@ -10,19 +9,16 @@ function request(request) {
 }
 
 function requestError() {
-  store.commit("editReqMsg", REQ_FAILED);
+  store.commit("requestFailed");
 }
 
 function response(response) {
-  store.commit("editReqMsg", SUCCESS);
-  store.commit("clearActiveReq");
+  store.commit("requestSucceed");
   return response;
 }
 
 function responseError(error) {
-  if (axios.isCancel(error)) {
-    store.commit("editReqMsg", CANCELLED);
-  }
+  console.log(error);
 }
 
 axios.interceptors.request.use(request, requestError);

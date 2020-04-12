@@ -1,13 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { CANCELLED, LOADING } from "../utils/request-messages";
+import {
+  CANCELLED,
+  LOADING,
+  SUCCESS,
+  REQ_FAILED
+} from "../utils/request-messages";
 
 Vue.use(Vuex);
-
-function cancelReq({ activeReq }) {
-  activeReq.cancel();
-  activeReq.msg = CANCELLED;
-}
 
 export default new Vuex.Store({
   state: {
@@ -16,15 +16,27 @@ export default new Vuex.Store({
   },
   mutations: {
     addRequest: (state, req) => {
-      if (state.activeReq) cancelReq(state.activeReq);
-      const request = { cancel: req.cancel, msg: LOADING };
-      state.requests.push(request);
-      state.activeReq = request; // TODO check for immutability
+      state.activeReq = { cancel: req.cancel, msg: LOADING };
     },
 
-    cancelReq,
+    cancelReq(state) {
+      state.activeReq.cancel();
+      state.activeReq.msg = CANCELLED;
+      state.requests.push(state.activeReq);
+      state.activeReq = null;
+    },
 
-    clearActiveReq: state => (state.activeReq = null),
+    requestSucceed(state) {
+      state.activeReq.msg = SUCCESS;
+      state.requests.push(state.activeReq);
+      state.activeReq = null;
+    },
+
+    requestFailed(state) {
+      state.activeReq.msg = REQ_FAILED;
+      state.requests.push(state.activeReq);
+      state.activeReq = null;
+    },
 
     editReqMsg: ({ activeReq }, msg) => (activeReq.msg = msg)
   }
