@@ -9,12 +9,8 @@ function request(request) {
   return request;
 }
 
-function requestError(error) {
-  if (axios.isCancel(error)) {
-    store.commit("editReqMsg", CANCELLED);
-  } else {
-    store.commit("editReqMsg", REQ_FAILED);
-  }
+function requestError() {
+  store.commit("editReqMsg", REQ_FAILED);
 }
 
 function response(response) {
@@ -23,5 +19,11 @@ function response(response) {
   return response;
 }
 
+function responseError(error) {
+  if (axios.isCancel(error)) {
+    store.commit("editReqMsg", CANCELLED);
+  }
+}
+
 axios.interceptors.request.use(request, requestError);
-axios.interceptors.response.use(response);
+axios.interceptors.response.use(response, responseError);
