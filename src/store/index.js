@@ -41,7 +41,11 @@ export default new Vuex.Store({
       clearOldRequest(state, msg.REQ_FAILED);
     },
 
-    clearOldRequest
+    clearOldRequest,
+
+    reset(state) {
+      state.requests = [];
+    }
   },
 
   actions: {

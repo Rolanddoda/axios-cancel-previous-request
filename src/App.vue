@@ -5,7 +5,7 @@
       <BaseBtn :disabled="!loading" @click="cancel">
         Cancel Request
       </BaseBtn>
-      <BaseBtn :disabled="loading" @click="$emit('reset')">
+      <BaseBtn :disabled="loading" @click="reset">
         Reset requests
       </BaseBtn>
     </div>
@@ -44,7 +44,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations({ cancel: "cancelReq" }),
+    ...mapMutations({ cancel: "cancelReq", reset: "reset" }),
 
     send() {
       axios.get("https://reqres.in/api/users?delay=2");
