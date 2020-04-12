@@ -1,20 +1,45 @@
 <template>
   <div id="app">
-    <LeftSection />
+    <div class="left-section">
+      <BaseBtn @click="send">Send Request</BaseBtn>
+      <BaseBtn :disabled="!loading" @click="cancel">
+        Cancel Request
+      </BaseBtn>
+      <BaseBtn :disabled="loading" @click="$emit('reset')">
+        Reset requests
+      </BaseBtn>
+    </div>
     <RightSection />
   </div>
 </template>
 
 <script>
-import LeftSection from "./components/LeftSection";
+import { mapGetters, mapMutations } from "vuex";
+import axios from "axios";
+// Components
 import RightSection from "./components/RightSection";
+import BaseBtn from "./components/BaseBtn";
+
+const API_URL = "https://reqres.in/api/users?delay=2";
 
 export default {
   name: "App",
 
   components: {
-    LeftSection,
-    RightSection
+    RightSection,
+    BaseBtn
+  },
+
+  computed: {
+    ...mapGetters(["loading"])
+  },
+
+  methods: {
+    ...mapMutations({ cancel: "cancelReq" }),
+
+    send() {
+      axios.get(API_URL);
+    }
   }
 };
 </script>
@@ -45,5 +70,13 @@ body {
 #app {
   display: grid;
   grid-template-columns: 1fr 300px;
+}
+
+.left-section {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 </style>
