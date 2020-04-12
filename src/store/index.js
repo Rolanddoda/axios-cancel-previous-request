@@ -9,6 +9,12 @@ import {
 
 Vue.use(Vuex);
 
+function clearOldRequest(state, MSG) {
+  state.activeReq.msg = MSG;
+  state.requests.push(state.activeReq);
+  state.activeReq = null;
+}
+
 export default new Vuex.Store({
   state: {
     requests: [],
@@ -21,21 +27,15 @@ export default new Vuex.Store({
 
     cancelReq(state) {
       state.activeReq.cancel();
-      state.activeReq.msg = CANCELLED;
-      state.requests.push(state.activeReq);
-      state.activeReq = null;
+      clearOldRequest(state, CANCELLED);
     },
 
     requestSucceed(state) {
-      state.activeReq.msg = SUCCESS;
-      state.requests.push(state.activeReq);
-      state.activeReq = null;
+      clearOldRequest(state, SUCCESS);
     },
 
     requestFailed(state) {
-      state.activeReq.msg = REQ_FAILED;
-      state.requests.push(state.activeReq);
-      state.activeReq = null;
+      clearOldRequest(state, REQ_FAILED);
     },
 
     editReqMsg: ({ activeReq }, msg) => (activeReq.msg = msg)
