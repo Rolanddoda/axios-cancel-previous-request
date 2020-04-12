@@ -12,7 +12,7 @@
 
 <script>
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 // Components
 import BaseBtn from "./BaseBtn";
 
@@ -23,17 +23,15 @@ export default {
     BaseBtn
   },
 
-  data: () => ({
-    loading: false
-  }),
+  computed: {
+    ...mapGetters(["loading"])
+  },
 
   methods: {
     ...mapMutations({ cancel: "cancelReq" }),
 
-    async send() {
-      this.loading = true;
-      await axios.get(API_URL);
-      this.loading = false;
+    send() {
+      axios.get(API_URL);
     }
   }
 };

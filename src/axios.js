@@ -18,7 +18,8 @@ function response(response) {
 }
 
 function responseError(error) {
-  console.log(error);
+  if (axios.isCancel(error)) console.log("Request is cancelled");
+  else console.log("Unknown error");
 }
 
 axios.interceptors.request.use(request, requestError);

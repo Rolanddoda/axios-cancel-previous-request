@@ -15,6 +15,14 @@ export default new Vuex.Store({
     requests: [],
     activeReq: null
   },
+
+  getters: {
+    loading(state) {
+      if (!state.activeReq) return false;
+      return state.activeReq.msg === msg.LOADING;
+    }
+  },
+
   mutations: {
     addRequest: (state, req) => {
       state.activeReq = { cancel: req.cancel, msg: msg.LOADING };
