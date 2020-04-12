@@ -48,6 +48,7 @@ export default {
 
     send() {
       axios.get("https://reqres.in/api/users?delay=2");
+      this.$nextTick(this.scrollToBottom);
     },
 
     scrollToBottom() {
@@ -131,5 +132,21 @@ body {
       }
     }
   }
+}
+
+/* width */
+.logger::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.logger::-webkit-scrollbar-track {
+  border-radius: 15px;
+}
+
+/* Handle */
+.logger::-webkit-scrollbar-thumb {
+  background: #929eaa;
+  border-radius: 10px;
 }
 </style>
