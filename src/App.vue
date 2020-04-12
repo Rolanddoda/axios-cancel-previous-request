@@ -9,28 +9,37 @@
         Reset requests
       </BaseBtn>
     </div>
-    <RightSection />
+
+    <div class="right-section">
+      <h4>Requests</h4>
+
+      <div ref="logger" class="logger">
+        <div class="log" v-for="(req, index) of requests" :key="index">
+          <span>Request {{ index + 1 }}</span>
+          {{ req.msg }}
+        </div>
+
+        <div class="log active" v-if="activeReq">
+          <span>Request {{ requests.length + 1 }}</span>
+          {{ activeReq.msg }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import axios from "axios";
 // Components
-import RightSection from "./components/RightSection";
 import BaseBtn from "./components/BaseBtn";
-
-const API_URL = "https://reqres.in/api/users?delay=2";
 
 export default {
   name: "App",
-
-  components: {
-    RightSection,
-    BaseBtn
-  },
+  components: { BaseBtn },
 
   computed: {
+    ...mapState(["requests", "activeReq"]),
     ...mapGetters(["loading"])
   },
 
@@ -38,13 +47,20 @@ export default {
     ...mapMutations({ cancel: "cancelReq" }),
 
     send() {
-      axios.get(API_URL);
+      axios.get("https://reqres.in/api/users?delay=2");
+    },
+
+    scrollToBottom() {
+      this.$nextTick(() => {
+        const el = this.$refs.logger;
+        el.scrollTop = el.scrollHeight - el.getBoundingClientRect().height;
+      });
     }
   }
 };
 </script>
 
-<style>
+<style lang="scss">
 body,
 html,
 #app {
@@ -78,5 +94,42 @@ body {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+.right-section {
+  border-left: 1px solid;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  padding: 15px;
+  min-width: 200px;
+  overflow: hidden;
+
+  > h4 {
+    text-decoration: underline;
+  }
+
+  > .logger {
+    padding: 10px;
+    overflow: auto;
+
+    .log {
+      padding: 5px;
+      box-shadow: 0 0 7px 0 black;
+      border-radius: 10px;
+      display: grid;
+      grid-auto-flow: column;
+      gap: 5px;
+
+      + .log {
+        margin-top: 5px;
+      }
+
+      &.active {
+        border: 2px solid white;
+      }
+    }
+  }
 }
 </style>
